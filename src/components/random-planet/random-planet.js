@@ -18,17 +18,18 @@ const RandomPlanet = () => {
 
     useEffect(() => {
         const updatePlanet = () => {
-            const id = Math.floor(Math.random() * (20 - 1) + 1);
+            const id = Math.floor(Math.random() * (20 - 1) +1);
             swapi.getPlanet(id).then(planet => {
                 setData({...data, ...planet, loading: false, error: false})
             }).catch(error => {
                 setData({...data, loading: false, error: true})
             })
         }
+
         updatePlanet()
         const planetInterval = setInterval(() => {
             updatePlanet()
-        }, 2500)
+        }, 3000)
 
         return () => clearInterval(planetInterval)
         // eslint-disable-next-line react-hooks/exhaustive-deps
