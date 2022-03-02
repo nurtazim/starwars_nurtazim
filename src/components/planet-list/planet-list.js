@@ -1,16 +1,15 @@
 import React, {useEffect, useState, useContext} from 'react';
 import "./planet-list.css"
-import Context from "../swapi-context";
+import {Consumer} from "../swapi-context";
+import WithSwapi from "../hoc";
 
-const PlanetList = ({setSelectedPlanetId}) => {
+const PlanetList = ({ swapi ,setSelectedPlanetId ,getData ,children}) => {
     const [data, setData] = useState([])
-    const swapi = useContext(Context)
+    // const swapi = useContext(Consumer)
 
-    useEffect(() => {
-            swapi.getAllPlanets().then(data => setData(data)).catch(error => error)
-        }, // eslint-disable-next-line react-hooks/exhaustive-deps
-        [])
-
+    useEffect(()=> {
+        getData().then(data => setData(data)).catch(error => error)
+        },[])
 
     const elements = data.map((planet) => {
         return (<li
@@ -27,6 +26,10 @@ const PlanetList = ({setSelectedPlanetId}) => {
     );
 
 }
-export default PlanetList;
+
+const divideFunc=(swapi)=>({
+    getData:swapi.getAllPlanets
+})
+export default WithSwapi(PlanetList ,divideFunc);
 
 

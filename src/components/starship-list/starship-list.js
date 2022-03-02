@@ -1,16 +1,16 @@
-import React, {useEffect, useState, useContext} from 'react';
-
+import React, {useEffect, useState} from 'react';
 import "./starship-list.css"
-import Context from "../swapi-context";
 
-const StarshipList = ({setSelectedStarshipId}) => {
+import WithSwapi from "../hoc";
+
+const StarshipList = ({swapi ,setSelectedStarshipId ,getData ,children}) => {
     const [data, setData] = useState([])
-    const swapi = useContext(Context)
 
-    useEffect(() => {
-            swapi.getAllStarships().then(data => setData(data)).catch(error => error)
-        }, // eslint-disable-next-line react-hooks/exhaustive-deps
-        [])
+
+     useEffect(()=> {
+        getData().then(data => setData(data)).catch(error => error)
+        },[])
+
 
 
     const elements = data.map((starship) => {
@@ -28,6 +28,10 @@ const StarshipList = ({setSelectedStarshipId}) => {
     );
 
 }
-export default StarshipList;
+
+const divideFunc=(swapi)=>({
+    getData:swapi.getAllStarships
+})
+export default WithSwapi(StarshipList ,divideFunc);
 
 

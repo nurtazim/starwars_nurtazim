@@ -1,31 +1,22 @@
 import React, {useContext, useState} from "react";
 import Row from "../row";
-import Context from "../swapi-context";
+import  {Consumer} from "../swapi-context";
 
-import {StarshipDetails ,Record} from "../starship-detals";
 
-import StarshipList from "../starship-list";
+import {StarshipListt,StarshipDetailss} from "../sw-components";
+
 
 
 const StarshipPage = () => {
     const [selectedStarshipId, setSelectedStarshipId] = useState(5)
-    const swapi = useContext(Context)
+    const swapi = useContext(Consumer)
 
 
     const leftElement =
-        <StarshipList setSelectedStarshipId={setSelectedStarshipId} getData={swapi.getAllStarships}>
-            {(item) => `${item.name}`}
-        </StarshipList>
-    const rightElement =
-        <StarshipDetails selectedStarshipId={selectedStarshipId} getData={swapi.getStarship} getImage={swapi.getStarshipImage}>
-            <Record label="Model:" fieldName="model"/>
-            <Record label="Manufacturer:" fieldName="manufacturer"/>
-            <Record label="CostInCredits:" fieldName="costInCredits"/>
-            <Record label="Length:" fieldName="length"/>
-            <Record label="Crew:" fieldName="crew"/>
-            <Record label="Passengers:" fieldName="passengers"/>
-            <Record label="CargoCapacity:" fieldName="cargoCapacity"/>
-        </StarshipDetails>
+        <StarshipListt setSelectedStarshipId={setSelectedStarshipId}/>
+
+    const rightElement =<StarshipDetailss selectedStarshipId={selectedStarshipId}/>
+
 
     return <Row left={leftElement} right={rightElement}/>
 }

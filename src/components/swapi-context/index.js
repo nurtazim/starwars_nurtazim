@@ -1,5 +1,5 @@
-import {Context} from "./context";
+import {Consumer,Provider} from "./context";
 
 
 
-export default Context
+export  {Consumer,Provider}

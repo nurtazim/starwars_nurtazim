@@ -1,16 +1,15 @@
 import React, {useEffect, useState, useContext} from 'react';
 import './item-list.css';
-import Context from "../swapi-context";
+import WithSwapi from "../hoc";
 
-const ItemList = ({setSelectedItemId}) => {
+
+const ItemList = ({ swapi ,setSelectedItemId ,getData ,children}) => {
     const [data, setData] = useState([])
-    const swapi = useContext(Context)
 
-    useEffect(() => {
-            swapi.getAllPeople().then(data => setData(data)).catch(error => error)
-        }, // eslint-disable-next-line react-hooks/exhaustive-deps
-        [])
 
+    useEffect(()=> {
+        getData().then(data => setData(data)).catch(error => error)
+    },[])
 
     const elements = data.map((person) => {
 
@@ -18,7 +17,7 @@ const ItemList = ({setSelectedItemId}) => {
             key={person.id}
             className="list-group-item"
             onClick={() => setSelectedItemId(person.id)}>
-            {person.name}
+            {children(person)}
         </li>)
     })
 
@@ -27,6 +26,10 @@ const ItemList = ({setSelectedItemId}) => {
     );
 }
 
-export default ItemList;
+
+const divideFunc=(swapi)=>({
+    getData:swapi.getAllPeople
+})
+export default WithSwapi(ItemList ,divideFunc);
 
 

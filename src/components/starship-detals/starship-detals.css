@@ -3,12 +3,14 @@
     margin-top: 1rem;
     flex-direction: row;
     padding: 1rem;
+
 }
 
 .item-details .item-image {
-    width: 30%;
-    height: 30%;
+    width: 40%;
+    height: 40%;
     border-radius: 10px;
+   margin: 0 auto;
 }
 
 .item-details .list-group-item {

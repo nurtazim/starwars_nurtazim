@@ -1,14 +1,14 @@
 import React, {useState, useEffect, useContext} from 'react';
 
-import "./starship.css"
+import "./people-random.css"
 
-import {Consumer} from "../swapi-context";
+import  {Consumer} from "../swapi-context";
 
 const Loader = () => <h1>Loading...</h1>
 const Error = () => <h1>Something went wrong...</h1>
 
 
-const RandomStarship = () => {
+const RandomPeople = () => {
     const [data, setData] = useState({
         loading: true,
         error: false,
@@ -16,26 +16,30 @@ const RandomStarship = () => {
     const swapi = useContext(Consumer)
 
     useEffect(() => {
-        const updateStarship = () => {
-            const id = Math.floor(Math.random() * (18 - 1) + 1);
-            swapi.getStarship(id).then(starship => {
+        const updatePeople = () => {
+            const id = Math.floor(Math.random() * (18 - 1) +1);
+            swapi.getPerson(id).then(starship => {
                 setData({...data, ...starship, loading: false, error: false})
             }).catch(error => {
                 setData({...data, loading: false, error: true})
             })
         }
 
-        updateStarship()
+        updatePeople()
         const planetInterval = setInterval(() => {
-            updateStarship()
+            updatePeople()
         }, 3000)
 
         return () => clearInterval(planetInterval)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+    // name: person.name,
+    //   gender: person.gender,
+    //   birthYear: person.birth_year,
+    //   eyeColor: person.eye_color
 
-    const {id, name, model, manufacturer, length, passengers} = data;
-    const imageUrl = swapi.getStarshipImage(id)
+    const {id, name, gender, birthYear, eyeColor } = data;
+    const imageUrl = swapi.getPersonImage(id)
 
     if (data.loading) {
         return <Loader/>
@@ -46,31 +50,28 @@ const RandomStarship = () => {
     }
 
     return (
-        <div className="random-starship jumbotron rounded">
-            <img className="starship-image" src={imageUrl} alt=""/>
+        <div className="random-people jumbotron rounded">
+            <img className="people-image" src={imageUrl} alt=""/>
             <div>
                 <h4>{name}</h4>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item">
-                        <span className="term">Model:</span>
-                        <span>{model}</span>
+                        <span className="term">Gender:</span>
+                        <span>{gender}</span>
                     </li>
                     <li className="list-group-item">
-                        <span className="term">Manufacturer:</span>
-                        <span>{manufacturer}</span>
+                        <span className="term">BirthYear:</span>
+                        <span>{birthYear}</span>
                     </li>
                     <li className="list-group-item">
-                        <span className="term">Length:</span>
-                        <span>{length}</span>
+                        <span className="term">EyeColor:</span>
+                        <span>{eyeColor}</span>
                     </li>
-                    <li className="list-group-item">
-                        <span className="term">Passengers:</span>
-                        <span>{passengers}</span>
-                    </li>
+
                 </ul>
             </div>
         </div>
     );
 }
 
-export default RandomStarship;
+export default RandomPeople;

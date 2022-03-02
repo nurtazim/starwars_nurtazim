@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 
 import './random-planet.css';
 
-import Context from "../swapi-context";
+import  {Consumer} from "../swapi-context";
 
 
 const Loader = () => <h1>Loading...</h1>
@@ -14,7 +14,7 @@ const RandomPlanet = () => {
         loading: true,
         error: false,
     })
-    const swapi = useContext(Context)
+    const swapi = useContext(Consumer)
 
     useEffect(() => {
         const updatePlanet = () => {
