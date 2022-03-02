@@ -1,0 +1,22 @@
+.item-details {
+    display: flex;
+    margin-top: 1rem;
+    flex-direction: row;
+    padding: 1rem;
+
+}
+
+.item-details .item-image {
+    width: 40%;
+    height: 40%;
+    border-radius: 10px;
+   margin: 0 auto;
+}
+
+.item-details .list-group-item {
+    padding: .25rem;
+}
+
+.item-details .list-group-item .term {
+    margin-right: .5rem;
+}

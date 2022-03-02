@@ -1,25 +1,20 @@
-import React, {useState} from "react";
-import ItemList from '../item-list';
-import PersonDetails from '../person-details';
+import React, { useState} from "react";
+
+
+import {PeopleList,PersonDetails} from "../sw-components";
+import Row from "../row";
+
 
 
 
 const PeoplePage = () => {
+    const [selectedItemId, setSelectedItemId] = useState(1)
 
-    const [selectedItemId ,setSelectedItemId]=useState(1)
-    return (
+    const leftElement =<PeopleList setSelectedItemId={setSelectedItemId}/>
 
-        <div className="row mb2">
-            <div className="col-md-6">
-                <ItemList setSelectedItemId={setSelectedItemId}/>
-            </div>
-            <div className="col-md-6">
-                <PersonDetails selectedItemId={selectedItemId}/>
-            </div>
-        </div>
-    )
+    const rightElement =<PersonDetails selectedItemId={selectedItemId}/>
 
-
+    return <Row left={leftElement} right={rightElement}/>
 }
 
 

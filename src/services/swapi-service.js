@@ -17,7 +17,7 @@ export default class SwapiService {
     const res = await this.getResource(`/people/`);
     return res.results
       .map(this._transformPerson)
-      .slice(0, 5);
+      .slice(0, 10);
   };
 
   getPerson = async (id) => {
@@ -29,7 +29,7 @@ export default class SwapiService {
     const res = await this.getResource(`/planets/`);
     return res.results
       .map(this._transformPlanet)
-      .slice(0, 5);
+      .slice(0, 10);
   };
 
   getPlanet = async (id) => {
@@ -41,7 +41,7 @@ export default class SwapiService {
     const res = await this.getResource(`/starships/`);
     return res.results
       .map(this._transformStarship)
-      .slice(0, 5);
+      .slice(0, 10);
   };
 
   getStarship = async (id) => {
@@ -72,7 +72,10 @@ export default class SwapiService {
       name: planet.name,
       population: planet.population,
       rotationPeriod: planet.rotation_period,
-      diameter: planet.diameter
+      diameter: planet.diameter,
+      climate:planet.climate,
+      gravity:planet.gravity,
+      terrain:planet.terrain
     };
   };
 
@@ -96,7 +99,11 @@ export default class SwapiService {
       name: person.name,
       gender: person.gender,
       birthYear: person.birth_year,
-      eyeColor: person.eye_color
+      eyeColor: person.eye_color,
+      height:person.height,
+      mass:person.mass,
+      skin_color:person.skin_color
+
     }
   }
 }
