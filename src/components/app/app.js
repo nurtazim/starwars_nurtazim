@@ -19,16 +19,25 @@ const App = () => {
                 <Provider value={swapi}>
                     <Header/>
                     <Route exact={true} path="/" render={() => <div><RandomPlanet/><PeoplePage/></div>}/>
-                    <Route   path="/people/:id?" render={({match}) =>{
-                        const selectedItemId=match.params.id
+                    <Route   path="/people/:id?" render={({match }  ) =>{
+                        let selectedItemId=match.params.id
+                        if (selectedItemId===undefined){
+                            selectedItemId="1"
+                        }
                         return <div> <RandomPeople/><PeoplePage selectedItemId={selectedItemId}/></div>}}/>
-                    <Route  path="/planet/:id?" render={({match}) =>{
-                        const selectedPlanetId=match.params.id
+                    <Route  path="/planet/:id?" render={({match} ) =>{
+                        let selectedPlanetId=match.params.id
+                        if (selectedPlanetId===undefined){
+                            selectedPlanetId="1"
+                        }
                         return <div><RandomPlanet/> <PlanetPage selectedPlanetId={selectedPlanetId}/></div>
                     }}/>
 
                     <Route path="/starship/:id?" render={({match}) => {
-                        const selectedStarshipId=match.params.id
+                        let selectedStarshipId=match.params.id
+                        if (selectedStarshipId===undefined){
+                            selectedStarshipId="1"
+                        }
                         return <div><RandomStarship/> <StarshipPage selectedStarshipId={selectedStarshipId} /></div>}}/>
                 </Provider>
             </Router>
