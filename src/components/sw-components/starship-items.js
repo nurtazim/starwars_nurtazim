@@ -2,24 +2,25 @@
 import StarshipList from "../starship-list/starship-list";
 import WithSwapi from "../hoc";
 
+import React from "react";
+
 
 const dividePeopleFunc = (swapi) => ({
     getData:swapi.getAllStarships
 
 })
-const StarshipListt = (props) => {
-    return (
-        <StarshipList {...props}>
-{(item)=>item.name}
-    </StarshipList>)
+
+
+
+const WichRenderFunc = (View, renderFunc) => {
+    return (props) => {
+        return <View {...props}>{renderFunc}</View>
+    }
 }
 
+const StarshipListt =
+    WithSwapi(WichRenderFunc(StarshipList,(item)=>item.name), swapi => ({
+        getData: swapi.getAllStarships
+    }))
 
-//
-// const PeopleList= WithSwapi(<ItemList >
-//     {(item)=>item.name}
-//  </ItemList>,(swapi)=>({
-//     getData:swapi.getAllPeople
-// }))
-
-export default WithSwapi(StarshipListt ,dividePeopleFunc);
+export default StarshipListt

@@ -1,28 +1,29 @@
 import ItemList from "../item-list";
-import React  from "react";
+import React from "react";
 import WithSwapi from "../hoc";
 
 
-
-
-const dividePeopleFunc = (swapi) => ({
-    getData:swapi.getAllPeople
-
-})
-const PeopleList = (props) => {
-    return (
-        <ItemList {...props}>
-{(item)=>item.name}
-    </ItemList>)
+const WichRenderFunc = (View, renderFunc) => {
+    return (props) => {
+        return <View {...props}>{renderFunc}</View>
+    }
 }
-
-
-//
-// const PeopleList= WithSwapi(<ItemList >
-//     {(item)=>item.name}
-//  </ItemList>,(swapi)=>({
+// const dividePeopleFunc = (swapi) => ({
 //     getData:swapi.getAllPeople
-// }))
+//
+// })
+// const PeopleList = (props) => {
+//     return (
+//         <ItemList {...props}>
+// {(item)=>item.name}
+//     </ItemList>)
+// }
 
-export default WithSwapi(PeopleList ,dividePeopleFunc);
+
+const PeopleList =
+    WithSwapi(WichRenderFunc(ItemList,(item)=>item.name), swapi => ({
+        getData: swapi.getAllPeople
+    }))
+
+export default PeopleList
 

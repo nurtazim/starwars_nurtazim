@@ -1,15 +1,18 @@
-import React, {useContext, useState} from "react";
+import React from "react";
 import Row from "../row";
-import  {Consumer} from "../swapi-context";
 
+import {withRouter} from "react-router-dom";
 
 import {StarshipListt,StarshipDetailss} from "../sw-components";
 
 
 
-const StarshipPage = () => {
-    const [selectedStarshipId, setSelectedStarshipId] = useState(5)
-    const swapi = useContext(Consumer)
+const StarshipPage = ({selectedStarshipId ,history}) => {
+    const setSelectedStarshipId=(id)=>{
+        history.push(id)
+    }
+    // const [selectedStarshipId, setSelectedStarshipId] = useState(5)
+
 
 
     const leftElement =
@@ -22,4 +25,4 @@ const StarshipPage = () => {
 }
 
 
-export default StarshipPage
+export default withRouter(StarshipPage)

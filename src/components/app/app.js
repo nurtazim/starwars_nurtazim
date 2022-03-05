@@ -5,7 +5,7 @@ import {PeoplePage, PlanetPage, StarshipPage} from "../pages";
 import SwapiService from "../../services/swapi-service";
 import './app.css';
 
-import {Route, Switch} from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import RandomStarship from "../starship-random/starship-random";
 import RandomPeople from "../people-random/people-random";
 import {Provider} from "../swapi-context";
@@ -15,14 +15,23 @@ const swapi = new SwapiService()
 const App = () => {
     return (
         <div>
-            <Switch>
+            <Router>
                 <Provider value={swapi}>
-                    <Route exact path="/" component={() => <div><Header/><RandomPlanet/><PeoplePage/></div>}/>
-                    <Route exact path="/people" component={() => <div><Header/> <RandomPeople/><PeoplePage/></div>}/>
-                    <Route exact path="/planet" component={() => <div><Header/> <RandomPlanet/> <PlanetPage/></div>}/>
-                    <Route exact path="/starship" component={() => <div><Header/><RandomStarship/> <StarshipPage/></div>}/>
+                    <Header/>
+                    <Route exact={true} path="/" render={() => <div><RandomPlanet/><PeoplePage/></div>}/>
+                    <Route   path="/people/:id?" render={({match}) =>{
+                        const selectedItemId=match.params.id
+                        return <div> <RandomPeople/><PeoplePage selectedItemId={selectedItemId}/></div>}}/>
+                    <Route  path="/planet/:id?" render={({match}) =>{
+                        const selectedPlanetId=match.params.id
+                        return <div><RandomPlanet/> <PlanetPage selectedPlanetId={selectedPlanetId}/></div>
+                    }}/>
+
+                    <Route path="/starship/:id?" render={({match}) => {
+                        const selectedStarshipId=match.params.id
+                        return <div><RandomStarship/> <StarshipPage selectedStarshipId={selectedStarshipId} /></div>}}/>
                 </Provider>
-            </Switch>
+            </Router>
         </div>
     );
 };

@@ -3,12 +3,16 @@ import React, { useState} from "react";
 
 import {PeopleList,PersonDetails} from "../sw-components";
 import Row from "../row";
+import {withRouter} from "react-router-dom";
 
 
+const PeoplePage = ({selectedItemId ,history}) => {
 
+    const setSelectedItemId=(id)=>{
+        history.push(id)
+    }
 
-const PeoplePage = () => {
-    const [selectedItemId, setSelectedItemId] = useState(1)
+    // const [selectedItemId, setSelectedItemId] = useState(1)
 
     const leftElement =<PeopleList setSelectedItemId={setSelectedItemId}/>
 
@@ -18,4 +22,4 @@ const PeoplePage = () => {
 }
 
 
-export default PeoplePage
+export default withRouter(PeoplePage)

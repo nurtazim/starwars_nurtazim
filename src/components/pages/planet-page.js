@@ -2,12 +2,16 @@ import React, {useContext, useState} from "react";
 import Row from "../row";
 import  {Consumer} from "../swapi-context";
 import {PlanetDetailss ,PlanetListItems} from "../sw-components";
+import {withRouter} from "react-router-dom";
 
-const PlanetPage = () => {
-    const [selectedPlanetId, setSelectedPlanetId] = useState(2)
+const PlanetPage = ({selectedPlanetId ,history}) => {
+     const setSelectedPlanetId=(id)=>{
+         history.push(id)
+    }
 
 
     const leftElement =<PlanetListItems setSelectedPlanetId={setSelectedPlanetId}/>
+
     const rightElement =<PlanetDetailss selectedPlanetId={selectedPlanetId} />
 
 
@@ -15,4 +19,4 @@ const PlanetPage = () => {
 }
 
 
-export default PlanetPage
+export default withRouter(PlanetPage)
