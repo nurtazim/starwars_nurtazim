@@ -1,15 +1,14 @@
 import React, {useState, useEffect, useContext} from 'react';
 
-import './random-planet.css';
+import "./people-random.css"
 
 import  {Consumer} from "../swapi-context";
-
 
 const Loader = () => <h1>Loading...</h1>
 const Error = () => <h1>Something went wrong...</h1>
 
 
-const RandomPlanet = () => {
+const RandomPeople = () => {
     const [data, setData] = useState({
         loading: true,
         error: false,
@@ -17,26 +16,30 @@ const RandomPlanet = () => {
     const swapi = useContext(Consumer)
 
     useEffect(() => {
-        const updatePlanet = () => {
-            const id = Math.floor(Math.random() * (20 - 1) +1);
-            swapi.getPlanet(id).then(planet => {
-                setData({...data, ...planet, loading: false, error: false})
+        const updatePeople = () => {
+            const id = Math.floor(Math.random() * (18 - 1) +1);
+            swapi.getPerson(id).then(starship => {
+                setData({...data, ...starship, loading: false, error: false})
             }).catch(error => {
                 setData({...data, loading: false, error: true})
             })
         }
 
-        updatePlanet()
+        updatePeople()
         const planetInterval = setInterval(() => {
-            updatePlanet()
+            updatePeople()
         }, 3000)
 
         return () => clearInterval(planetInterval)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+    // name: person.name,
+    //   gender: person.gender,
+    //   birthYear: person.birth_year,
+    //   eyeColor: person.eye_color
 
-    const {id, name, population, rotationPeriod, diameter} = data;
-    const imageUrl = `https://starwars-visualguide.com/assets/img/planets/${id}.jpg`
+    const {id, name, gender, birthYear, eyeColor } = data;
+    const imageUrl = swapi.getPersonImage(id)
 
     if (data.loading) {
         return <Loader/>
@@ -47,27 +50,28 @@ const RandomPlanet = () => {
     }
 
     return (
-        <div className="random-planet jumbotron rounded">
-            <img className="planet-image" src={imageUrl} alt=""/>
+        <div className="random-people jumbotron rounded">
+            <img className="people-image" src={imageUrl} alt=""/>
             <div>
                 <h4>{name}</h4>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item">
-                        <span className="term">Population</span>
-                        <span>{population}</span>
+                        <span className="term">Gender:</span>
+                        <span>{gender}</span>
                     </li>
                     <li className="list-group-item">
-                        <span className="term">Rotation Period</span>
-                        <span>{rotationPeriod}</span>
+                        <span className="term">BirthYear:</span>
+                        <span>{birthYear}</span>
                     </li>
                     <li className="list-group-item">
-                        <span className="term">Diameter</span>
-                        <span>{diameter}</span>
+                        <span className="term">EyeColor:</span>
+                        <span>{eyeColor}</span>
                     </li>
+
                 </ul>
             </div>
         </div>
     );
 }
 
-export default RandomPlanet;
+export default RandomPeople;
